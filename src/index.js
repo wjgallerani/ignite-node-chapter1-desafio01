@@ -119,15 +119,15 @@ app.delete('/todos/:id', checksExistsUserAccount, (request, response) => {
   const { user } = request;
   const { id } = request.params;
 
-  const todo = user.todos.findIndex(
+  const todoIndex = user.todos.findIndex(
     (todo) => todo.id === id
   );
 
-  if (!todo) {
+  if (todoIndex === -1) {
      return response.status(404).json({error: "Todo não Existe"});
   }
 
-  user.todos.splice(todo, 1);
+  user.todos.splice(todoIndex, 1);
 
   return response.status(204).send();
 });
